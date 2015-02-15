@@ -6,9 +6,9 @@ html, body{
     $lightBGColor: #f5f3f1;
 
     $navbarHeight: 50px;
+    $sidebarWidth: 300px;
 
     margin: 0;
-    padding: 0;
 
     height: 100%;
 
@@ -34,18 +34,28 @@ html, body{
 
         padding-left: $navbarHeight/3;
 
+        z-index: 2;
+
     }
 
     div#container {
 
         height: 100%;
         padding-top: $navbarHeight;
+        position: relative;
 
         div#sidebar {
 
+
+            width: $sidebarWidth;
+            position: fixed;
             height: 100%;
-            width: 300px;
-            float: left;
+
+
+            top: $navbarHeight;
+            left: 0;
+            bottom: 0;
+
 
             background-color: $darkBGColor;
             color: $lightBGColor;
@@ -54,26 +64,32 @@ html, body{
 
         }
 
-        div#main {
 
-            overflow: hidden;
-            height: 100%;
 
-            > div.tile {
+    }
 
-                background-color: white;
-                width: 450px;
-                height: 450px;
+    div#main {
 
-                margin-left: 50px;
-                margin-top: 50px;
+        // overflow: hidden;
+        // height: 100%;
 
-                -webkit-box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.15);
-                box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.15);
+        padding-left: $sidebarWidth;
 
-                display: inline-block;
+        padding-bottom: 50px;
 
-            }
+        > div.tile {
+
+            background-color: white;
+            width: 450px;
+            height: 450px;
+
+            margin-left: 50px;
+            margin-top: 50px;
+
+            -webkit-box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.15);
+            box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.15);
+
+            display: inline-block;
 
         }
 
