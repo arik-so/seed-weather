@@ -8,8 +8,24 @@
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+
+    <script type="text/javascript">
+
+        var cities = ['NYC', 'London,UK'];
+        var cityIDs = [5128581, 2643743];
+
+        var path = 'http://api.openweathermap.org/data/2.5/group?id={cityIDs}&units=metric';
+        var fixedCities = cityIDs.join(',');
+        var fixexPath = path.replace('{cityIDs}', fixedCities);
+        $.ajax({url: fixexPath, async: true, success:function(data){
+
+            console.log(data);
+
+        }});
 
 
+    </script>
 
 </head>
 <body>
@@ -20,19 +36,43 @@
         <div id="sidebar"></div>
 
         <div id="main">
+
+            <div class="tile">
+                <span class="city_name">New York City</span>
+                <span class="weather_type">Overcast</span>
+                <span class="current_temperature">0ºC</span>
+
+                <div class="details">
+
+                    <span class="weekday">Tuesday</span>
+                    <span class="wind_speed">40km/h</span>
+                    <span style="clear: both;"></span>
+
+                </div>
+
+            </div>
+            <div class="tile">
+                <span class="city_name">London</span>
+                <span class="weather_type">Clear Sky</span>
+            </div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile">
+                <span class="city_name">London</span>
+            </div>
             <div class="tile"></div>
             <div class="tile"></div>
             <div class="tile"></div>
             <div class="tile"></div>
             <div class="tile"></div>
-            <div class="tile"></div>
-            <div class="tile"></div>
-            <div class="tile"></div>
-            <div class="tile"></div>
-            <div class="tile"></div>
+
         </div>
 
+        <span style="clear: both;"></span>
+
     </div>
+
+
 
 
 

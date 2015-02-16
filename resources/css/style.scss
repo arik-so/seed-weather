@@ -81,7 +81,7 @@ html, body{
 
             background-color: white;
             width: 450px;
-            height: 450px;
+            height: 550px;
 
             margin-left: 50px;
             margin-top: 50px;
@@ -89,7 +89,69 @@ html, body{
             -webkit-box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.15);
             box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.15);
 
-            display: inline-block;
+            float: left;
+            position: relative;
+
+            overflow: auto;
+
+            &:last-of-type{
+                margin-bottom: 50px;
+            }
+
+            span.city_name{
+
+                font-size: 35px;
+                display: block;
+                text-align: center;
+
+                margin-top: 40px;
+                font-weight: 100;
+
+            }
+
+            span.weather_type{
+
+                font-size: 20px;
+                font-weight: 300;
+
+                display: block;
+                text-align: center;
+                margin-top: 15px;
+
+
+            }
+
+            span.current_temperature{
+
+                font-size: 60px;
+                font-weight: 100;
+
+                display: block;
+                text-align: center;
+                margin-top: 35px;
+
+            }
+
+            div.details{
+
+                padding: 25px;
+
+                span.weekday{
+                    float: left;
+                }
+
+                span.wind_speed{
+                    float: right;
+                }
+
+                span.weekday, span.wind_speed{
+
+                    font-size: 20px;
+                    font-weight: 300;
+
+                }
+
+            }
 
         }
 
