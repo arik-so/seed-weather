@@ -20,8 +20,6 @@ seedApp.controller('ConfigurationController', ['$scope', '$rootScope', function 
             storedConfiguration = JSON.parse(window.localStorage['seed-weather-configuration']);
         }catch(e){}
 
-        console.log(storedConfiguration);
-
         if(storedConfiguration){
             usedConfiguration = storedConfiguration;
         }else{

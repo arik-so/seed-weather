@@ -49,7 +49,7 @@
 
                 <span class="weekday">Tuesday</span>
                 <span class="wind">
-                    <img class="wind_icon" src="resources/images/wind-arrow.png" style="transform: rotate({{currentCityWeather.wind.deg}}deg);" />
+                    <img class="wind_icon" src="resources/images/wind-arrow.png" style="transform: rotate({{currentCityWeather.wind.deg}}deg); -ms-transform: rotate({{currentCityWeather.wind.deg}}deg); -webkit-transform: rotate({{currentCityWeather.wind.deg}}deg); " />
                     <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed | addSpeedUnit}}</span>
                 </span>
 
