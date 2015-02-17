@@ -5,24 +5,33 @@
 
 seedApp.filter('formatSpeed', function ($rootScope) {
 
-    return function (number) {
+    return function (number, unitSystem, addUnits) {
 
         // number is formatted in m/s
         var convertedNumber = number;
+        var unitSign = 'm/s';
 
-        if ($rootScope.units === 'metric') {
+        if (unitSystem === 'metric') {
 
             // we need to calculate km/h
             convertedNumber = number * 3.6;
+            unitSign = 'km/h';
 
-        } else if ($rootScope.units === 'imperial') {
+        } else if (unitSystem === 'imperial') {
 
             // we need to calculate Fahrenheit
             convertedNumber = number * 2.23694; // according to Google
+            unitSign = 'mph';
 
         }
 
-        return Math.round(convertedNumber);
+        var response = Math.round(convertedNumber);
+
+        if(addUnits){
+            response += ' ' + unitSign;
+        }
+
+        return response;
 
     };
 

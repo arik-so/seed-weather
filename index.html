@@ -16,13 +16,13 @@
 
     </script>
 
+    <script type="text/javascript" src="resources/js/services/weather_data_service.js"></script>
+
     <script type="text/javascript" src="resources/js/controllers/configuration_controller.js"></script>
     <script type="text/javascript" src="resources/js/controllers/forecast_controller.js"></script>
 
     <script type="text/javascript" src="resources/js/filters/format_temperature_filter.js"></script>
-    <script type="text/javascript" src="resources/js/filters/add_temperature_unit_filter.js"></script>
     <script type="text/javascript" src="resources/js/filters/format_speed_filter.js"></script>
-    <script type="text/javascript" src="resources/js/filters/add_speed_unit_filter.js"></script>
     <script type="text/javascript" src="resources/js/filters/weather_icon_filter.js"></script>
 
 </head>
@@ -33,24 +33,42 @@
 <div id="container">
 
     <div id="sidebar" ng-controller="ConfigurationController">
-        Units: metric imperial
+
+        <span class="toggle">
+            <span class="button" ng-click="toggleUnits('metric'); ">metric</span>
+            <span class="button" ng-click="toggleUnits('imperial'); ">imperial</span>
+            <span class="button" ng-click="toggleUnits('si'); ">SI</span>
+        </span>
+
+        <br/>
+
+        Cities:
+        <div class="city" ng-repeat="currentCityWeather in currentWeather.list">
+            <span class="weather_icon" style="background-image: url('{{currentCityWeather.weather[0].icon | weatherIcon}}');"></span>
+            <span class="city_name">{{currentCityWeather.name}}</span>
+            <span class="weather_type">{{currentCityWeather.weather[0].main}}</span>
+            <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature:configuration.units:true}}</span>
+            <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed:configuration.units:true}}</span>
+            <div style="clear: both;"></div>
+        </div>
+
     </div>
 
     <div id="main" ng-controller="ForecastController">
 
-        <div class="tile loader" ng-hide="weatherDetails.list.length > 0"></div>
+        <div class="tile loader" ng-hide="currentWeather.list.length > 0"></div>
 
-        <div class="tile" ng-repeat="currentCityWeather in weatherDetails.list">
+        <div class="tile" ng-class="{night: (timestamp < currentCityWeather.sys.sunrise || timestamp > currentCityWeather.sys.sunset) }" ng-repeat="currentCityWeather in currentWeather.list">
             <span class="city_name">{{currentCityWeather.name}}</span>
-            <span class="weather_type">{{currentCityWeather.weather[0].main}}</span>
-            <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature | addTemperatureUnit}}</span>
+            <span class="weather_type">{{currentCityWeather.weather[0].description}}</span>
+            <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature:configuration.units:true}}</span>
 
             <div class="details">
 
                 <span class="weekday">Tuesday</span>
                 <span class="wind">
                     <img class="wind_icon" src="resources/images/wind-arrow.png" style="transform: rotate({{currentCityWeather.wind.deg}}deg); -ms-transform: rotate({{currentCityWeather.wind.deg}}deg); -webkit-transform: rotate({{currentCityWeather.wind.deg}}deg); " />
-                    <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed | addSpeedUnit}}</span>
+                    <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed:configuration.units:true}}</span>
                 </span>
 
                 <div style="clear: both;"></div>
@@ -63,7 +81,7 @@
 
                         <span class="hour_time">{{currentHourlyForecast.dt * 1000 | date:'shortTime'}}</span>
                         <span class="hour_icon" style="background-image: url('{{currentHourlyForecast.weather[0].icon | weatherIcon}}');"></span>
-                        <span class="hour_temperature">{{currentHourlyForecast.main.temp | formatTemperature | addTemperatureUnit}}</span>
+                        <span class="hour_temperature">{{currentHourlyForecast.main.temp | formatTemperature:configuration.units:true}}</span>
 
                     </div>
 

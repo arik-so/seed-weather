@@ -3,20 +3,25 @@
  */
 
 
-seedApp.controller('ForecastController', ['$scope', '$rootScope', '$timeout', '$http', function ($scope, $rootScope, $timeout, $http) {
+seedApp.controller('ForecastController', function ($scope, $rootScope, $timeout, $http, WeatherData) {
 
-    $scope.weatherDetails = {};
-    $scope.hourlyForecast = {};
+    $scope.currentWeather = WeatherData.currentWeather;
+    $scope.hourlyForecast = WeatherData.hourlyForecast;
 
     var init = function () {
 
-        var cityIDs = $rootScope.cityIDs;
+        var cityIDs = $rootScope.configuration.cityIDs;
 
         var currentWeatherURL = 'http://api.openweathermap.org/data/2.5/group?id=' + cityIDs.join(','); // + '&units=metric';
         $http.get(currentWeatherURL).success(function (data, status, headers, config) {
 
             console.log(data);
-            $scope.weatherDetails = data;
+
+            // add all the key/value pairs from data to the current weather object without overwriting it
+            angular.extend($scope.currentWeather, data);
+
+            console.log('Weather Data: ');
+            console.log(WeatherData);
 
         });
 
@@ -36,4 +41,4 @@ seedApp.controller('ForecastController', ['$scope', '$rootScope', '$timeout', '$
     init();
 
 
-}]);
+});

@@ -5,24 +5,33 @@
 
 seedApp.filter('formatTemperature', function ($rootScope) {
 
-    return function (number) {
+    return function (number, unitSystem, addUnits) {
 
         // number is formatted in Kelvin
         var convertedNumber = number;
+        var unitSign = 'K';
 
-        if ($rootScope.units === 'metric') {
+        if (unitSystem === 'metric') {
 
             // we need to calculate celsius
             convertedNumber = number - 273.15;
+            unitSign = 'ºC';
 
-        } else if ($rootScope.units === 'imperial') {
+        } else if (unitSystem === 'imperial') {
 
             // we need to calculate Fahrenheit
             convertedNumber = (number - 273.15) * 1.8 + 32;
+            unitSign = 'ºF';
 
         }
 
-        return Math.round(convertedNumber);
+        var formattedTemperature = Math.round(convertedNumber);
+
+        if(addUnits){
+            formattedTemperature += unitSign;
+        }
+
+        return formattedTemperature;
 
     };
 

@@ -2,18 +2,18 @@
  * Created by arik on 2/17/15.
  */
 
-seedApp.controller('ConfigurationController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+seedApp.controller('ConfigurationController', function ($scope, $rootScope, $interval, WeatherData) {
+
+    $scope.currentWeather = WeatherData.currentWeather;
 
     var init = function () {
 
-        var defaultConfiguration = {
+        var configuration = {
 
             "cityIDs": [5368361, 5380748, 5128581, 2643743, 293397, 295277],
             "units": "metric"
 
         };
-
-        var usedConfiguration = defaultConfiguration;
         var storedConfiguration;
 
         try {
@@ -21,17 +21,45 @@ seedApp.controller('ConfigurationController', ['$scope', '$rootScope', function 
         }catch(e){}
 
         if(storedConfiguration){
-            usedConfiguration = storedConfiguration;
-        }else{
-            window.localStorage['seed-weather-configuration'] = JSON.stringify(defaultConfiguration);
+            configuration = storedConfiguration;
         }
 
-        $rootScope.cityIDs = usedConfiguration.cityIDs;
-        $rootScope.units = usedConfiguration.units;
+        $rootScope.configuration = configuration;
+
+        $rootScope.configuration.cityIDs = configuration.cityIDs;
+        $rootScope.configuration.units = configuration.units;
+        saveConfiguration();
+
+        loadTimestamp();
 
     };
 
+    function saveConfiguration(){
+
+        window.localStorage['seed-weather-configuration'] = JSON.stringify($rootScope.configuration);
+
+    }
+
+    function loadTimestamp(){
+        $rootScope.timestamp = Date.now() / 1000;
+    }
+
     init();
 
+    $rootScope.$watch('configuration', function(newValue, oldValue){
 
-}]);
+        saveConfiguration();
+
+    }, true);
+
+    $interval(function(){ // updating the timestamp every minute should suffice
+        loadTimestamp();
+    }, 60000);
+
+    $scope.toggleUnits = function(units){
+
+        $rootScope.configuration.units = units;
+
+    };
+
+});
