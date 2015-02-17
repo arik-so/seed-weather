@@ -3,6 +3,10 @@
 html, body{
 
     $darkBGColor: #353533;
+    $darkBGAlternateColor: #434240;
+    $darkBGBorderColor: #595755;
+    $darkBGColorPressed: #1c1c1b;
+
     $lightBGColor: #f5f3f1;
 
     $navbarHeight: 50px;
@@ -15,6 +19,58 @@ html, body{
     background-color: $lightBGColor;
 
     font-family: 'Roboto', sans-serif;
+
+    span.toggle{
+
+        $height: 30px;
+
+        display: inline-block;
+        position: relative;
+
+        margin-top: 15px;
+        margin-bottom: 15px;
+
+        overflow: hidden;
+
+        border-radius: $height / 2;
+
+        span.button{
+
+            float: left;
+
+            background-color: $darkBGAlternateColor;
+            color: $lightBGColor;
+
+            font-weight: 400;
+            font-size: 13px;
+
+            height: $height;
+            line-height: $height;
+
+            padding-left: 20px;
+            padding-right: 20px;
+
+            &:not(:last-of-type){
+                border-right: 1px solid $darkBGBorderColor;
+            }
+
+            &.active{
+
+                background-color: $darkBGColorPressed;
+
+            }
+
+            &:not(.active):hover{
+
+                background-color: #2d2d2c;
+                cursor: pointer;
+
+            }
+
+        }
+
+    }
+
 
     div#navbar{
 
@@ -64,21 +120,104 @@ html, body{
 
             overflow: hidden;
 
+            span.button_container{
+
+                display: block;
+                text-align: center;
+
+            }
+
+            input[type=text]{
+
+                outline: none;
+                border: none;
+
+                display: block;
+
+                background-color: $darkBGAlternateColor;
+                color: $lightBGColor;
+
+                height: 30px;
+                border-radius: 15px;
+                padding-left: 15px;
+                padding-right: 15px;
+
+                margin: auto;
+                margin-bottom: 15px;
+
+                font-size: 13px;
+                font-weight: 300;
+
+                text-align: center;
+
+
+            }
+
             div.city{
 
+                padding: 15px;
+
                 &:nth-of-type(even){
-                    background-color: #434240;
+                    background-color: $darkBGAlternateColor;
                 }
 
                 span.weather_icon{
 
-                    width: 50px;
-                    height: 50px;
+                    width: 40px;
+                    height: 40px;
 
                     display: block;
                     float: left;
 
                     background-repeat: no-repeat;
+                    background-position: center;
+
+                    margin-right: 15px;
+
+                }
+
+                div.general{
+
+                    float: left;
+
+                    span.city_name{
+
+                        display: block;
+
+                        font-size: 16px;
+                        font-weight: 100;
+
+                    }
+                    span.weather_type{
+                        display: block;
+
+                        font-size: 11px;
+                        font-weight: 400;
+
+                    }
+                    
+                }
+
+                div.numbers{
+
+                    float: right;
+                    text-align: right;
+
+                    span.current_temperature{
+
+                        display: block;
+
+                        font-size: 16px;
+                        font-weight: 100;
+
+                    }
+
+                    span.wind_speed{
+                        display: block;
+
+                        font-size: 11px;
+                        font-weight: 400;
+                    }
 
                 }
 

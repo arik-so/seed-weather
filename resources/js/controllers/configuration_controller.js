@@ -2,7 +2,7 @@
  * Created by arik on 2/17/15.
  */
 
-seedApp.controller('ConfigurationController', function ($scope, $rootScope, $interval, WeatherData) {
+seedApp.controller('ConfigurationController', function ($scope, $rootScope, $interval, $http, WeatherData) {
 
     $scope.currentWeather = WeatherData.currentWeather;
 
@@ -61,5 +61,19 @@ seedApp.controller('ConfigurationController', function ($scope, $rootScope, $int
         $rootScope.configuration.units = units;
 
     };
+
+    $scope.$watch('addCityQuery', function(newValue, oldValue){
+
+        var searchURL = 'http://api.openweathermap.org/data/2.5/find?q=' + encodeURIComponent(newValue);
+        $http.get(searchURL).success(function(data){
+
+            console.log(data);
+            $scope.searchResults = data;
+
+        });
+
+
+
+    });
 
 });
