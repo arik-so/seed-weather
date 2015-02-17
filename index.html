@@ -14,65 +14,16 @@
 
         var seedApp = angular.module('seedApp', []);
 
-        seedApp.controller('WeatherOverviewController', ['$scope', '$timeout', '$http', function ($scope, $timeout, $http) {
-
-            $scope.weatherDetails = {};
-            $scope.hourlyForecast = {};
-
-            var init = function () {
-
-                var cityIDs = [5368361, 5380748, 5128581, 2643743, 293397, 295277];
-
-                var path = 'http://api.openweathermap.org/data/2.5/group?id={cityIDs}&units=metric';
-                var fixedCities = cityIDs.join(',');
-                var fixedPath = path.replace('{cityIDs}', fixedCities);
-
-                $http.get(fixedPath).success(function(data, status, headers, config){
-
-                    $scope.weatherDetails = data;
-
-                });
-
-                angular.forEach(cityIDs, function(currentCityID){
-
-                    var hourlyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast?units=metric&id=' + currentCityID;
-                    $http.get(hourlyForecastURL).success(function(data){
-
-                        $scope.hourlyForecast[currentCityID] = data;
-
-                    });
-
-                });
-
-            };
-
-            init();
-
-
-        }]);
-
-        seedApp.filter('roundNumber', function(){
-
-            return function(number){
-
-                return Math.round(number);
-
-            };
-
-        });
-
-        seedApp.filter('weatherIcon', function(){
-
-            return function(iconCode){
-
-                return 'http://openweathermap.org/img/w/'+iconCode+'.png';
-
-            };
-
-        });
-
-
     </script>
+
+    <script type="text/javascript" src="resources/js/controllers/configuration_controller.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/forecast_controller.js"></script>
+
+    <script type="text/javascript" src="resources/js/filters/format_temperature_filter.js"></script>
+    <script type="text/javascript" src="resources/js/filters/add_temperature_unit_filter.js"></script>
+    <script type="text/javascript" src="resources/js/filters/format_speed_filter.js"></script>
+    <script type="text/javascript" src="resources/js/filters/add_speed_unit_filter.js"></script>
+    <script type="text/javascript" src="resources/js/filters/weather_icon_filter.js"></script>
 
 </head>
 <body ng-app="seedApp">
@@ -80,60 +31,41 @@
 <div id="navbar">Seed™ Weather</div>
 
 <div id="container">
-    <div id="sidebar"></div>
 
-    <div id="main" ng-controller="WeatherOverviewController">
+    <div id="sidebar" ng-controller="ConfigurationController">
+        Units: metric imperial
+    </div>
+
+    <div id="main" ng-controller="ForecastController">
+
+        <div class="tile loader" ng-hide="weatherDetails.list.length > 0"></div>
 
         <div class="tile" ng-repeat="currentCityWeather in weatherDetails.list">
             <span class="city_name">{{currentCityWeather.name}}</span>
             <span class="weather_type">{{currentCityWeather.weather[0].main}}</span>
-            <span class="current_temperature">{{currentCityWeather.main.temp | roundNumber}}ºC</span>
+            <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature | addTemperatureUnit}}</span>
 
             <div class="details">
 
                 <span class="weekday">Tuesday</span>
-                <span class="wind_speed">{{currentCityWeather.wind.speed * 3.6 | roundNumber}}km/h</span>
+                <span class="wind">
+                    <img class="wind_icon" src="resources/images/wind-arrow.png" style="transform: rotate({{currentCityWeather.wind.deg}}deg);" />
+                    <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed | addSpeedUnit}}</span>
+                </span>
 
                 <div style="clear: both;"></div>
 
                 <span class="separator"></span>
 
                 <div class="today_hours">
-                    <div class="hour_details">
-                        <span class="hour_time">{{currentCityWeather.dt * 1000 | date:'shortTime'}}</span>
-                        <span class="hour_icon"><img src="{{currentCityWeather.weather[0].icon | weatherIcon}}" /></span>
-                        <span class="hour_temperature">{{currentCityWeather.main.temp | roundNumber}}ºC</span>
-                    </div>
 
-                    <div class="hour_details" ng-repeat="currentHourlyForecast in hourlyForecast[currentCityWeather.id].list | limitTo: 5" ng-if="$index > 0">
+                    <div class="hour_details" ng-repeat="currentHourlyForecast in hourlyForecast[currentCityWeather.id].list | limitTo: 6" ng-if="$index > 0">
 
                         <span class="hour_time">{{currentHourlyForecast.dt * 1000 | date:'shortTime'}}</span>
-                        <span class="hour_icon"><img src="{{currentHourlyForecast.weather[0].icon | weatherIcon}}" /></span>
-                        <span class="hour_temperature">{{currentHourlyForecast.main.temp | roundNumber}}ºC</span>
+                        <span class="hour_icon" style="background-image: url('{{currentHourlyForecast.weather[0].icon | weatherIcon}}');"></span>
+                        <span class="hour_temperature">{{currentHourlyForecast.main.temp | formatTemperature | addTemperatureUnit}}</span>
 
                     </div>
-
-                    <!--
-                    <div class="hour_details">
-                        <span class="hour_time">{{hourlyForecast[currentCityWeather.id].list[0].dt_txt}}</span>
-                        <span class="hour_icon"></span>
-                        <span class="hour_temperature">0ºC</span>
-                    </div>
-                    <div class="hour_details">
-                        <span class="hour_time">11am</span>
-                        <span class="hour_icon"></span>
-                        <span class="hour_temperature">0ºC</span>
-                    </div>
-                    <div class="hour_details">
-                        <span class="hour_time">12pm</span>
-                        <span class="hour_icon"></span>
-                        <span class="hour_temperature">0ºC</span>
-                    </div>
-                    <div class="hour_details">
-                        <span class="hour_time">1pm</span>
-                        <span class="hour_icon"></span>
-                        <span class="hour_temperature">0ºC</span>
-                    </div>-->
 
                     <div style="clear: both;"></div>
 

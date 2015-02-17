@@ -145,8 +145,21 @@ html, body{
                     float: left;
                 }
 
-                span.wind_speed{
+                span.wind{
+
                     float: right;
+
+                    span.wind_icon{
+
+                    }
+
+                    span.wind_speed{
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
+
+
+
                 }
 
                 span.weekday, span.wind_speed{
@@ -166,7 +179,7 @@ html, body{
                     margin-top: 10px;
                     margin-bottom: 10px;
 
-                    background-color: $darkBGColor;
+                    background-color: $lightBGColor;
 
 
                 }
@@ -181,10 +194,21 @@ html, body{
                         width: $todayHourWidth / $hourCount;
                         float: left;
 
+                        font-weight: 300;
+
                         span.hour_time, span.hour_icon, span.hour_temperature{
 
                             display: block;
                             text-align: center;
+
+                        }
+
+                        span.hour_icon{
+
+                            height: 50px;
+
+                            background-repeat: no-repeat;
+                            background-position: center;
 
                         }
 
