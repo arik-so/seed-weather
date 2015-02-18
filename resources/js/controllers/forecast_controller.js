@@ -7,8 +7,9 @@ seedApp.controller('ForecastController', function ($scope, $rootScope, $timeout,
 
     $scope.currentWeather = WeatherData.currentWeather;
     $scope.hourlyForecast = WeatherData.hourlyForecast;
+    $scope.dailyForecast = WeatherData.dailyForecast;
 
-    var init = function () {
+    function loadForecastData(){
 
         var cityIDs = $rootScope.configuration.cityIDs;
 
@@ -28,17 +29,34 @@ seedApp.controller('ForecastController', function ($scope, $rootScope, $timeout,
         angular.forEach(cityIDs, function (currentCityID) {
 
             var hourlyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast?id=' + currentCityID; // + '&units=metric';
+            var dailyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=' + currentCityID;
+
             $http.get(hourlyForecastURL).success(function (data) {
-
                 $scope.hourlyForecast[currentCityID] = data;
-
             });
 
+            $http.get(dailyForecastURL).success(function(data){
+                $scope.dailyForecast[currentCityID] = data;
+            });
+
+
         });
+
+    }
+
+    var init = function () {
+
+        loadForecastData();
 
     };
 
     init();
+
+    $rootScope.$watch('configuration.cityIDs', function(newValue, oldValue){
+
+        loadForecastData();
+
+    }, true);
 
 
 });

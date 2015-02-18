@@ -1,0 +1,53 @@
+<div id="sidebar" ng-controller="ConfigurationController">
+
+        <span class="button_container">
+
+            <span class="toggle">
+                <span class="button" ng-repeat="currentUnit in ['Metric', 'Imperial', 'SI']" ng-class="{active: configuration.units === currentUnit.toLowerCase()}" ng-click="toggleUnits(currentUnit.toLowerCase()); ">
+                    {{currentUnit}}
+                </span>
+            </span>
+
+        </span>
+
+    <input type="text" ng-model="addCityQuery" placeholder="Add City" />
+
+    <div class="search_results" ng-show="addCityQuery.length > 0">
+
+        <span>Search results for: {{addCityQuery}}</span>
+
+        <div class="city" ng-repeat="currentCityWeather in searchResults.list">
+            <span class="weather_icon" style="background-image: url('{{currentCityWeather.weather[0].icon | weatherIcon}}');"></span>
+            <div class="general">
+                <span class="city_name">{{currentCityWeather.name}}, {{currentCityWeather.sys.country}}</span>
+                <span class="weather_type">{{currentCityWeather.weather[0].main}}</span>
+            </div>
+            <div class="add">
+                +
+            </div>
+            <div class="numbers">
+                <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature:configuration.units:true}}</span>
+                <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed:configuration.units:true}}</span>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+    </div>
+
+    <div class="city" ng-hide="addCityQuery.length > 0" ng-repeat="currentCityWeather in currentWeather.list">
+        <span class="weather_icon" style="background-image: url('{{currentCityWeather.weather[0].icon | weatherIcon}}');"></span>
+        <div class="general">
+            <span class="city_name">{{currentCityWeather.name}}</span>
+            <span class="weather_type">{{currentCityWeather.weather[0].main}}</span>
+        </div>
+        <div class="remove">
+            –
+        </div>
+        <div class="numbers">
+            <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature:configuration.units:true}}</span>
+            <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed:configuration.units:true}}</span>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+</div>

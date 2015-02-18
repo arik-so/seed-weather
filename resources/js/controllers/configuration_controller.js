@@ -62,6 +62,27 @@ seedApp.controller('ConfigurationController', function ($scope, $rootScope, $int
 
     };
 
+    $scope.addCity = function(cityID){
+
+        var index = $rootScope.configuration.cityIDs.indexOf(cityID);
+
+        if(index == -1) {
+            $rootScope.configuration.cityIDs.push(cityID);
+            $scope.addCityQuery = null;
+        }
+
+    };
+
+    $scope.removeCity = function(cityID){
+
+        var index = $rootScope.configuration.cityIDs.indexOf(cityID);
+        if(index > -1){
+            $rootScope.configuration.cityIDs.splice(index, 1);
+            $scope.addCityQuery = null;
+        }
+
+    };
+
     $scope.$watch('addCityQuery', function(newValue, oldValue){
 
         var searchURL = 'http://api.openweathermap.org/data/2.5/find?q=' + encodeURIComponent(newValue);
@@ -71,8 +92,6 @@ seedApp.controller('ConfigurationController', function ($scope, $rootScope, $int
             $scope.searchResults = data;
 
         });
-
-
 
     });
 

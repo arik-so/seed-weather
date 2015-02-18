@@ -9,6 +9,9 @@ html, body{
 
     $lightBGColor: #f5f3f1;
 
+    $greenColor: #2bcf8b;
+    $redColor: #ce1d23;
+
     $navbarHeight: 50px;
     $sidebarWidth: 300px;
 
@@ -187,6 +190,11 @@ html, body{
                         font-size: 16px;
                         font-weight: 100;
 
+                        max-width: 115px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
                     }
                     span.weather_type{
                         display: block;
@@ -196,6 +204,39 @@ html, body{
 
                     }
                     
+                }
+
+                div.add, div.remove{
+
+                    float: right;
+
+                    margin-top: 5px;
+                    margin-left: 15px;
+
+                    $diameter: 25px;
+                    width: $diameter;
+                    height: $diameter;
+                    line-height: $diameter;
+
+                    text-align: center;
+                    color: $lightBGColor;
+
+                    border: 2px solid $lightBGColor;
+                    border-radius: 50%;
+
+                    font-weight: 500;
+
+                    cursor: pointer;
+
+                }
+
+                &:hover div.add{
+                    color: $greenColor;
+                    border-color: $greenColor;
+                }
+                &:hover div.remove{
+                    color: $redColor;
+                    border-color: $redColor;
                 }
 
                 div.numbers{
@@ -244,7 +285,7 @@ html, body{
 
             background-color: white;
             width: $tileWidth;
-            height: 550px;
+            min-height: $tileWidth;
 
             margin-left: 50px;
             margin-top: 50px;
@@ -377,6 +418,30 @@ html, body{
                             background-position: center;
 
                         }
+
+                    }
+
+                }
+
+                div.day_details{
+
+                    margin-bottom: 10px;
+
+                    span.weekday{
+
+                        float: left;
+
+                        font-size: 20px;
+                        font-weight: 300;
+
+                    }
+
+                    span.day_temperature{
+
+                        float: right;
+
+                        font-size: 20px;
+                        font-weight: 300;
 
                     }
 

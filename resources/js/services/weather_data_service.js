@@ -7,5 +7,6 @@ seedApp.service('WeatherData', function WeatherData(){
     var weatherData = this;
     weatherData.currentWeather = {};
     weatherData.hourlyForecast = {};
+    weatherData.dailyForecast = {};
 
 });
