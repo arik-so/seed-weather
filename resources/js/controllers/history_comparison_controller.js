@@ -73,6 +73,8 @@ seedApp.controller('HistoryComparisonController', function ($scope, $rootScope, 
 
         var currentFlotObject = {};
         currentFlotObject.data = currentFlotData;
+
+        // unfortunately, the historical data API does not return the city names, so we need to look them up in different datasets we already know to be there. Not nice, but it works.
         currentFlotObject.label = WeatherData.hourlyForecast[data.city_id].city.name;
 
         $scope.myData.push(currentFlotObject);
