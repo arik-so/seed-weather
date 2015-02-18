@@ -8,9 +8,10 @@ seedApp.controller('ConfigurationController', function ($scope, $rootScope, $int
 
     var init = function () {
 
+        // this is the default configuration
         var configuration = {
 
-            "cityIDs": [5368361, 5380748, 5128581, 2643743, 293397, 295277],
+            "cityIDs": [5128581, 2643743],
             "units": "metric"
 
         };

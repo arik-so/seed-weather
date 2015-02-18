@@ -15,6 +15,8 @@ html, body{
     $navbarHeight: 50px;
     $sidebarWidth: 300px;
 
+    $toggleButtonHeight: 30px;
+
     margin: 0;
 
     height: 100%;
@@ -25,7 +27,7 @@ html, body{
 
     span.toggle{
 
-        $height: 30px;
+
 
         display: inline-block;
         position: relative;
@@ -35,7 +37,7 @@ html, body{
 
         overflow: hidden;
 
-        border-radius: $height / 2;
+        border-radius: $toggleButtonHeight / 2;
 
         span.button{
 
@@ -47,8 +49,8 @@ html, body{
             font-weight: 400;
             font-size: 13px;
 
-            height: $height;
-            line-height: $height;
+            height: $toggleButtonHeight;
+            line-height: $toggleButtonHeight;
 
             padding-left: 20px;
             padding-right: 20px;
@@ -94,6 +96,17 @@ html, body{
         padding-left: $navbarHeight/3;
 
         z-index: 2;
+
+        span.toggle{
+
+            margin: 0;
+            margin-top: ($navbarHeight - $toggleButtonHeight) / 2;
+
+            position: absolute;
+            left: $sidebarWidth;
+
+
+        }
 
     }
 
@@ -279,7 +292,7 @@ html, body{
 
         padding-bottom: 50px;
 
-        > div.tile {
+        > div > div.tile {
 
             $tileWidth: 450px;
 
@@ -311,6 +324,45 @@ html, body{
             &.night{
                 background-color: #353533;
                 color: $lightBGColor;
+            }
+
+            > div.overlay{
+
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+
+                background-color: inherit;
+                opacity: 0.5;
+
+                z-index: 1; // the rotated image had a weird overlay
+
+                cursor: pointer;
+
+                &:not(.preselection){
+                    display: none;
+                }
+
+                &:hover, &.active{
+
+                    opacity: 0.8;
+
+                    background-repeat: no-repeat;
+                    background-position: center;
+
+                }
+
+                &:hover{
+                    background-image: url('../images/checkbox-unchecked.png');
+                }
+                &.active{
+                    background-image: url('../images/checkbox-checked.png');
+                }
+
+
+
             }
 
             span.city_name{

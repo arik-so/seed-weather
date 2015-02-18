@@ -12,14 +12,17 @@
 
     <script type="text/javascript">
 
-        var seedApp = angular.module('seedApp', []);
+        var seedApp = angular.module('seedApp', ['ngRoute']);
 
     </script>
 
     <script type="text/javascript" src="resources/js/services/weather_data_service.js"></script>
+    <script type="text/javascript" src="resources/js/services/view_mode_service.js"></script>
 
     <script type="text/javascript" src="resources/js/controllers/configuration_controller.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/view_switch_controller.js"></script>
     <script type="text/javascript" src="resources/js/controllers/forecast_controller.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/history_comparison_controller.js"></script>
 
     <script type="text/javascript" src="resources/js/filters/format_temperature_filter.js"></script>
     <script type="text/javascript" src="resources/js/filters/format_speed_filter.js"></script>
@@ -28,12 +31,19 @@
 </head>
 <body ng-app="seedApp">
 
-<div id="navbar">Seed™ Weather</div>
+<div id="navbar" ng-controller="ViewSwitchController">
+    Seed™ Weather
+
+    <span class="toggle">
+
+        <span class="button" ng-repeat="currentViewDetails in [{key:'forecast', name:'Forecast'}, {key:'compareHistory', name:'Compare History'}]" ng-class="{active: currentView === currentViewDetails.key}" ng-click="toggleView(currentViewDetails.key);">
+            {{currentViewDetails.name}}
+        </span>
+    </span>
+
+</div>
 
 <div id="container">
-
-    <!--<ng-include src="'resources/partials/sidebar.html'"></ng-include>-->
-
 
     <div id="sidebar" ng-controller="ConfigurationController">
 
@@ -89,43 +99,49 @@
 
     </div>
 
+    <div id="main">
 
-    <div id="main" ng-controller="ForecastController">
+        <div ng-controller="ForecastController" ng-hide="viewMode.currentViewMode == 'compareHistory'">
 
-        <div class="tile loader" ng-hide="currentWeather.list.length > 0"></div>
+            <div class="tile loader" ng-hide="currentWeather.list.length > 0"></div>
 
-        <div class="tile" ng-class="{night: (timestamp < currentCityWeather.sys.sunrise || timestamp > currentCityWeather.sys.sunset) }" ng-repeat="currentCityWeather in currentWeather.list">
-            <span class="city_name">{{currentCityWeather.name}}</span>
-            <span class="weather_type">{{currentCityWeather.weather[0].description}}</span>
-            <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature:configuration.units:true}}</span>
+            <div class="tile" ng-class="{night: (timestamp < currentCityWeather.sys.sunrise || timestamp > currentCityWeather.sys.sunset) }" ng-repeat="currentCityWeather in currentWeather.list">
 
-            <div class="details">
+                {{currentViewMode}}
 
-                <span class="weekday">{{currentCityWeather.dt * 1000 | date:'EEEE'}}</span>
+                <div class="overlay" ng-class="{preselection: viewMode.currentViewMode === 'preselection', active: viewMode.preselectedCities.indexOf(currentCityWeather.id) > -1}" ng-click="togglePreselection(currentCityWeather.id)"></div>
+
+                <span class="city_name">{{currentCityWeather.name}}</span>
+                <span class="weather_type">{{currentCityWeather.weather[0].description}}</span>
+                <span class="current_temperature">{{currentCityWeather.main.temp | formatTemperature:configuration.units:true}}</span>
+
+                <div class="details">
+
+                    <span class="weekday">{{currentCityWeather.dt * 1000 | date:'EEEE'}}</span>
                 <span class="wind">
                     <img class="wind_icon" src="resources/images/wind-arrow.png" style="transform: rotate({{currentCityWeather.wind.deg}}deg); -ms-transform: rotate({{currentCityWeather.wind.deg}}deg); -webkit-transform: rotate({{currentCityWeather.wind.deg}}deg); " />
                     <span class="wind_speed">{{currentCityWeather.wind.speed | formatSpeed:configuration.units:true}}</span>
                 </span>
 
-                <div style="clear: both;"></div>
+                    <div style="clear: both;"></div>
 
-                <span class="separator"></span>
+                    <span class="separator"></span>
 
-                <div class="today_hours">
+                    <div class="today_hours">
 
-                    <div class="hour_details" ng-repeat="currentHourlyForecast in hourlyForecast[currentCityWeather.id].list | limitTo: 6" ng-if="$index > 0">
+                        <div class="hour_details" ng-repeat="currentHourlyForecast in hourlyForecast[currentCityWeather.id].list | limitTo: 6" ng-if="$index > 0">
 
-                        <span class="hour_time">{{currentHourlyForecast.dt * 1000 | date:'shortTime'}}</span>
-                        <span class="hour_icon" style="background-image: url('{{currentHourlyForecast.weather[0].icon | weatherIcon}}');"></span>
-                        <span class="hour_temperature">{{currentHourlyForecast.main.temp | formatTemperature:configuration.units:true}}</span>
+                            <span class="hour_time">{{currentHourlyForecast.dt * 1000 | date:'shortTime'}}</span>
+                            <span class="hour_icon" style="background-image: url('{{currentHourlyForecast.weather[0].icon | weatherIcon}}');"></span>
+                            <span class="hour_temperature">{{currentHourlyForecast.main.temp | formatTemperature:configuration.units:true}}</span>
+
+                        </div>
+
+                        <div style="clear: both;"></div>
 
                     </div>
 
-                    <div style="clear: both;"></div>
-
-                </div>
-
-                <span class="separator"></span>
+                    <span class="separator"></span>
 
                 <span ng-repeat="currentDailyForecast in dailyForecast[currentCityWeather.id].list | limitTo: 6" ng-if="$index > 1">
                     <div class="day_details" >
@@ -139,11 +155,27 @@
                     <div style="clear: both;"></div>
                 </span>
 
+                </div>
+
             </div>
 
         </div>
 
+        <div ng-controller="HistoryComparisonController" ng-show="viewMode.currentViewMode == 'compareHistory'">
+
+            This is some awesome history right there!
+
+            <span ng-repeat="currentCityID in viewMode.preselectedCities">
+                {{currentCityID}}
+            </span>
+
+        </div>
+
     </div>
+
+
+
+
 
     <span style="clear: both;"></span>
 

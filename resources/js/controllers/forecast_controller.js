@@ -3,11 +3,13 @@
  */
 
 
-seedApp.controller('ForecastController', function ($scope, $rootScope, $interval, $http, WeatherData) {
+seedApp.controller('ForecastController', function ($scope, $rootScope, $interval, $http, WeatherData, ViewMode) {
 
     $scope.currentWeather = WeatherData.currentWeather;
     $scope.hourlyForecast = WeatherData.hourlyForecast;
     $scope.dailyForecast = WeatherData.dailyForecast;
+
+    $scope.viewMode = ViewMode;
 
     function loadForecastData(){
 
@@ -61,5 +63,17 @@ seedApp.controller('ForecastController', function ($scope, $rootScope, $interval
     $interval(function(){ // update the weather data every 15 minutes
         loadForecastData();
     }, 15 * 1000 * 60);
+
+
+    $scope.togglePreselection = function(cityID){
+
+        var index = $scope.viewMode.preselectedCities.indexOf(cityID);
+        if(index == -1){
+            $scope.viewMode.preselectedCities.push(cityID);
+        }else{
+            $scope.viewMode.preselectedCities.splice(index, 1);
+        }
+
+    }
 
 });
