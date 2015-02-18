@@ -3,7 +3,7 @@
  */
 
 
-seedApp.controller('HistoryComparisonController', function ($scope, $rootScope, $interval, $http, $filter, WeatherData, ViewMode) {
+seedApp.controller('HistoryComparisonController', function ($scope, $rootScope, $http, $filter, WeatherData, ViewMode) {
 
     $scope.viewMode = ViewMode;
 
@@ -12,7 +12,6 @@ seedApp.controller('HistoryComparisonController', function ($scope, $rootScope, 
         if (newValue.length == 2) { // we need to load the current data
 
             $scope.myData = [];
-            $scope.myChartOptions = {};
 
             $scope.historicalData = {};
 
@@ -74,7 +73,7 @@ seedApp.controller('HistoryComparisonController', function ($scope, $rootScope, 
 
         var currentFlotObject = {};
         currentFlotObject.data = currentFlotData;
-        currentFlotObject.label = data.city_id;
+        currentFlotObject.label = WeatherData.hourlyForecast[data.city_id].city.name;
 
         $scope.myData.push(currentFlotObject);
 
