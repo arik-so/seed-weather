@@ -69,7 +69,7 @@
 
         <div ng-show="addCityQuery.length > 0">
 
-            <div class="city" ng-repeat="currentCityWeather in searchResults.list">
+            <div class="city" ng-repeat="currentCityWeather in searchResults.list" ng-if="configuration.cityIDs.indexOf(currentCityWeather.id) == -1">
                 <span class="weather_icon" style="background-image: url('{{currentCityWeather.weather[0].icon | weatherIcon}}');"></span>
                 <div class="general">
                     <span class="city_name">{{currentCityWeather.name}}, {{currentCityWeather.sys.country}}</span>
