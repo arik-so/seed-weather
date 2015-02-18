@@ -52,9 +52,9 @@ seedApp.controller('ConfigurationController', function ($scope, $rootScope, $int
 
     }, true);
 
-    $interval(function(){ // updating the timestamp every minute should suffice
+    $interval(function(){ // update the current timestamp every minute (e. g. for automated background coloring)
         loadTimestamp();
-    }, 60000);
+    }, 60 * 1000);
 
     $scope.toggleUnits = function(units){
 

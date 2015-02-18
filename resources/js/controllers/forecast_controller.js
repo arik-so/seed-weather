@@ -3,7 +3,7 @@
  */
 
 
-seedApp.controller('ForecastController', function ($scope, $rootScope, $timeout, $http, WeatherData) {
+seedApp.controller('ForecastController', function ($scope, $rootScope, $interval, $http, WeatherData) {
 
     $scope.currentWeather = WeatherData.currentWeather;
     $scope.hourlyForecast = WeatherData.hourlyForecast;
@@ -58,5 +58,8 @@ seedApp.controller('ForecastController', function ($scope, $rootScope, $timeout,
 
     }, true);
 
+    $interval(function(){ // update the weather data every 15 minutes
+        loadForecastData();
+    }, 15 * 1000 * 60);
 
 });
