@@ -5,6 +5,7 @@
 seedApp.controller('ConfigurationController', function ($scope, $rootScope, $interval, $http, WeatherData) {
 
     $scope.currentWeather = WeatherData.currentWeather;
+    $rootScope.openWeatherMapAPIKey = '720510d6fef1bfb8df8ad803ac5c2af6';
 
     var init = function () {
 

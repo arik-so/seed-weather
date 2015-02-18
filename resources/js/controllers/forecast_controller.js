@@ -15,7 +15,7 @@ seedApp.controller('ForecastController', function ($scope, $rootScope, $interval
 
         var cityIDs = $rootScope.configuration.cityIDs;
 
-        var currentWeatherURL = 'http://api.openweathermap.org/data/2.5/group?id=' + cityIDs.join(','); // + '&units=metric';
+        var currentWeatherURL = 'http://api.openweathermap.org/data/2.5/group?id=' + cityIDs.join(',') + '&APPID=' + $rootScope.openWeatherMapAPIKey; // + '&units=metric';
         $http.get(currentWeatherURL).success(function (data, status, headers, config) {
 
             console.log(data);
@@ -30,8 +30,8 @@ seedApp.controller('ForecastController', function ($scope, $rootScope, $interval
 
         angular.forEach(cityIDs, function (currentCityID) {
 
-            var hourlyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast?id=' + currentCityID; // + '&units=metric';
-            var dailyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=' + currentCityID;
+            var hourlyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast?id=' + currentCityID + '&APPID=' + $rootScope.openWeatherMapAPIKey; // + '&units=metric';
+            var dailyForecastURL = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=' + currentCityID + '&APPID=' + $rootScope.openWeatherMapAPIKey;
 
             $http.get(hourlyForecastURL).success(function (data) {
                 $scope.hourlyForecast[currentCityID] = data;

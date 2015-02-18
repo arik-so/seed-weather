@@ -8,11 +8,16 @@
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-flot/jquery.flot.resize.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-flot/jquery.flot.time.js"></script>
+    <script type="text/javascript" src="bower_components/angular-flot/angular-flot.js"></script>
 
     <script type="text/javascript">
 
-        var seedApp = angular.module('seedApp', ['ngRoute']);
+        var seedApp = angular.module('seedApp', ['ngRoute', 'angular-flot']);
 
     </script>
 
@@ -161,13 +166,9 @@
 
         </div>
 
-        <div ng-controller="HistoryComparisonController" ng-show="viewMode.currentViewMode == 'compareHistory'">
+        <div ng-controller="HistoryComparisonController" ng-show="viewMode.currentViewMode == 'compareHistory'" id="history_chart_container">
 
-            This is some awesome history right there!
-
-            <span ng-repeat="currentCityID in viewMode.preselectedCities">
-                {{currentCityID}}
-            </span>
+            <flot dataset="myData" options="options" height="450px"></flot>
 
         </div>
 
