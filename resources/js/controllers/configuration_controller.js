@@ -88,7 +88,7 @@ seedApp.controller('ConfigurationController', function ($scope, $rootScope, $int
 
     $scope.$watch('addCityQuery', function(newValue, oldValue){
 
-        var searchURL = 'http://api.openweathermap.org/data/2.5/find?q=' + encodeURIComponent(newValue);
+        var searchURL = '//api.openweathermap.org/data/2.5/find?q=' + encodeURIComponent(newValue);
         $http.get(searchURL).success(function(data){
 
             console.log(data);
