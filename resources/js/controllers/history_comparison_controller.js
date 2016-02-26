@@ -34,7 +34,7 @@ seedApp.controller('HistoryComparisonController', function ($scope, $rootScope, 
 
         angular.forEach(cityIDs, function (currentCityID) {
 
-            var historyURL = 'http://api.openweathermap.org/data/2.5/history/city?type=day&id=' + currentCityID + '&APPID=' + $rootScope.openWeatherMapAPIKey; // + '&units=metric';
+            var historyURL = '//api.openweathermap.org/data/2.5/history/city?type=day&id=' + currentCityID + '&APPID=' + $rootScope.openWeatherMapAPIKey; // + '&units=metric';
 
             $http.get(historyURL).success(function (data) {
                 $scope.historicalData[currentCityID] = data;
