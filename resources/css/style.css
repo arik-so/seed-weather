@@ -1,0 +1,241 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500);
+html, body {
+  margin: 0;
+  height: 100%;
+  background-color: #f5f3f1;
+  font-family: 'Roboto', sans-serif; }
+  html span.toggle, body span.toggle {
+    display: inline-block;
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 15px; }
+    html span.toggle span.button, body span.toggle span.button {
+      float: left;
+      background-color: #434240;
+      color: #f5f3f1;
+      font-weight: 400;
+      font-size: 13px;
+      height: 30px;
+      line-height: 30px;
+      padding-left: 20px;
+      padding-right: 20px; }
+      html span.toggle span.button:not(:last-of-type), body span.toggle span.button:not(:last-of-type) {
+        border-right: 1px solid #595755; }
+      html span.toggle span.button.active, body span.toggle span.button.active {
+        background-color: #1c1c1b; }
+      html span.toggle span.button:not(.active):hover, body span.toggle span.button:not(.active):hover {
+        background-color: #2d2d2c;
+        cursor: pointer; }
+  html div#navbar, body div#navbar {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    position: fixed;
+    background-color: #353533;
+    color: #f5f3f1;
+    -webkit-box-shadow: inset 1px -4px 9px -6px #000000;
+    box-shadow: inset 1px -4px 9px -6px #000000;
+    font-weight: 100;
+    font-size: 20px;
+    padding-left: 16.66667px;
+    z-index: 2; }
+    html div#navbar span.toggle, body div#navbar span.toggle {
+      margin: 0;
+      margin-top: 10px;
+      position: absolute;
+      left: 300px; }
+  html div#container, body div#container {
+    padding-top: 50px;
+    position: relative; }
+    html div#container div#sidebar, body div#container div#sidebar {
+      width: 300px;
+      position: fixed;
+      height: 100%;
+      top: 50px;
+      left: 0;
+      bottom: 0;
+      background-color: #353533;
+      color: #f5f3f1;
+      overflow: auto; }
+      html div#container div#sidebar span.button_container, body div#container div#sidebar span.button_container {
+        display: block;
+        text-align: center; }
+      html div#container div#sidebar input[type=text], body div#container div#sidebar input[type=text] {
+        outline: none;
+        border: none;
+        display: block;
+        background-color: #434240;
+        color: #f5f3f1;
+        height: 30px;
+        border-radius: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin: auto;
+        margin-bottom: 15px;
+        font-size: 13px;
+        font-weight: 300;
+        text-align: center; }
+      html div#container div#sidebar div.city, body div#container div#sidebar div.city {
+        padding: 15px; }
+        html div#container div#sidebar div.city:nth-of-type(even), body div#container div#sidebar div.city:nth-of-type(even) {
+          background-color: #434240; }
+        html div#container div#sidebar div.city span.weather_icon, body div#container div#sidebar div.city span.weather_icon {
+          width: 40px;
+          height: 40px;
+          display: block;
+          float: left;
+          background-repeat: no-repeat;
+          background-position: center;
+          margin-right: 15px; }
+        html div#container div#sidebar div.city div.general, body div#container div#sidebar div.city div.general {
+          float: left; }
+          html div#container div#sidebar div.city div.general span.city_name, body div#container div#sidebar div.city div.general span.city_name {
+            display: block;
+            font-size: 16px;
+            font-weight: 100;
+            max-width: 115px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; }
+          html div#container div#sidebar div.city div.general span.weather_type, body div#container div#sidebar div.city div.general span.weather_type {
+            display: block;
+            font-size: 11px;
+            font-weight: 400; }
+        html div#container div#sidebar div.city div.add, html div#container div#sidebar div.city div.remove, body div#container div#sidebar div.city div.add, body div#container div#sidebar div.city div.remove {
+          float: right;
+          margin-top: 5px;
+          margin-left: 15px;
+          width: 25px;
+          height: 25px;
+          line-height: 25px;
+          text-align: center;
+          color: #f5f3f1;
+          border: 2px solid #f5f3f1;
+          border-radius: 50%;
+          font-weight: 500;
+          cursor: pointer; }
+        html div#container div#sidebar div.city:hover div.add, body div#container div#sidebar div.city:hover div.add {
+          color: #2bcf8b;
+          border-color: #2bcf8b; }
+        html div#container div#sidebar div.city:hover div.remove, body div#container div#sidebar div.city:hover div.remove {
+          color: #ce1d23;
+          border-color: #ce1d23; }
+        html div#container div#sidebar div.city div.numbers, body div#container div#sidebar div.city div.numbers {
+          float: right;
+          text-align: right; }
+          html div#container div#sidebar div.city div.numbers span.current_temperature, body div#container div#sidebar div.city div.numbers span.current_temperature {
+            display: block;
+            font-size: 16px;
+            font-weight: 100; }
+          html div#container div#sidebar div.city div.numbers span.wind_speed, body div#container div#sidebar div.city div.numbers span.wind_speed {
+            display: block;
+            font-size: 11px;
+            font-weight: 400; }
+  html div#main, body div#main {
+    padding-left: 300px;
+    padding-bottom: 50px; }
+    html div#main > div > div.tile, body div#main > div > div.tile {
+      background-color: white;
+      width: 450px;
+      min-height: 450px;
+      margin-left: 50px;
+      margin-top: 50px;
+      -webkit-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.15);
+      float: left;
+      position: relative;
+      overflow: auto; }
+      html div#main > div > div.tile:last-of-type, body div#main > div > div.tile:last-of-type {
+        margin-bottom: 50px; }
+      html div#main > div > div.tile.loader, body div#main > div > div.tile.loader {
+        background-image: url("../images/ajax-loader.gif");
+        background-position: center;
+        background-repeat: no-repeat; }
+      html div#main > div > div.tile.night, body div#main > div > div.tile.night {
+        background-color: #353533;
+        color: #f5f3f1; }
+      html div#main > div > div.tile > div.overlay, body div#main > div > div.tile > div.overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: inherit;
+        opacity: 0.5;
+        z-index: 1;
+        cursor: pointer; }
+        html div#main > div > div.tile > div.overlay:not(.preselection), body div#main > div > div.tile > div.overlay:not(.preselection) {
+          display: none; }
+        html div#main > div > div.tile > div.overlay:hover, html div#main > div > div.tile > div.overlay.active, body div#main > div > div.tile > div.overlay:hover, body div#main > div > div.tile > div.overlay.active {
+          opacity: 0.8;
+          background-repeat: no-repeat;
+          background-position: center; }
+        html div#main > div > div.tile > div.overlay:hover, body div#main > div > div.tile > div.overlay:hover {
+          background-image: url("../images/checkbox-unchecked.png"); }
+        html div#main > div > div.tile > div.overlay.active, body div#main > div > div.tile > div.overlay.active {
+          background-image: url("../images/checkbox-checked.png"); }
+      html div#main > div > div.tile span.city_name, body div#main > div > div.tile span.city_name {
+        font-size: 35px;
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        font-weight: 100; }
+      html div#main > div > div.tile span.weather_type, body div#main > div > div.tile span.weather_type {
+        font-size: 20px;
+        font-weight: 300;
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+        text-transform: capitalize; }
+      html div#main > div > div.tile span.current_temperature, body div#main > div > div.tile span.current_temperature {
+        font-size: 60px;
+        font-weight: 100;
+        display: block;
+        text-align: center;
+        margin-top: 25px; }
+      html div#main > div > div.tile div.details, body div#main > div > div.tile div.details {
+        padding: 25px; }
+        html div#main > div > div.tile div.details span.weekday, body div#main > div > div.tile div.details span.weekday {
+          float: left; }
+        html div#main > div > div.tile div.details span.wind, body div#main > div > div.tile div.details span.wind {
+          float: right; }
+          html div#main > div > div.tile div.details span.wind span.wind_speed, body div#main > div > div.tile div.details span.wind span.wind_speed {
+            display: inline-block;
+            margin-left: 5px; }
+        html div#main > div > div.tile div.details span.weekday, html div#main > div > div.tile div.details span.wind_speed, body div#main > div > div.tile div.details span.weekday, body div#main > div > div.tile div.details span.wind_speed {
+          font-size: 20px;
+          font-weight: 300; }
+        html div#main > div > div.tile div.details span.separator, body div#main > div > div.tile div.details span.separator {
+          display: block;
+          width: 100%;
+          height: 1px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          background-color: #f5f3f1; }
+        html div#main > div > div.tile div.details div.today_hours div.hour_details, body div#main > div > div.tile div.details div.today_hours div.hour_details {
+          width: 80px;
+          float: left;
+          font-weight: 300; }
+          html div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_time, html div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_icon, html div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_temperature, body div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_time, body div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_icon, body div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_temperature {
+            display: block;
+            text-align: center; }
+          html div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_icon, body div#main > div > div.tile div.details div.today_hours div.hour_details span.hour_icon {
+            height: 50px;
+            background-repeat: no-repeat;
+            background-position: center; }
+        html div#main > div > div.tile div.details div.day_details, body div#main > div > div.tile div.details div.day_details {
+          margin-bottom: 10px; }
+          html div#main > div > div.tile div.details div.day_details span.weekday, body div#main > div > div.tile div.details div.day_details span.weekday {
+            float: left;
+            font-size: 20px;
+            font-weight: 300; }
+          html div#main > div > div.tile div.details div.day_details span.day_temperature, body div#main > div > div.tile div.details div.day_details span.day_temperature {
+            float: right;
+            font-size: 20px;
+            font-weight: 300; }
+    html div#main #history_chart_container, body div#main #history_chart_container {
+      padding: 50px; }
+
+/*# sourceMappingURL=style.css.map */
